@@ -29,6 +29,7 @@ jobs:
           node-version: 16.x
           registry-url: https://npm.pkg.github.com
           cache: npm
+
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -36,9 +37,8 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-          npx playwright install --with-deps
+        run: npm ci
+      - run: npx playwright install --with-deps
 
       - run: npm run build
 
