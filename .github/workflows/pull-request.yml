@@ -25,9 +25,10 @@ jobs:
           path: ${{env.CACHED_DEPENDENCY_PATHS}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-          npx playwright install --with-deps
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
