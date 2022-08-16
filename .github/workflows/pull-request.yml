@@ -3,6 +3,10 @@ name: Pull Request
 on:
   pull_request:
     branches: [main]
+env:
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
+  BUILD_CACHE_KEY: ${{ github.sha }}
 
 jobs:
   validate:
@@ -13,18 +17,18 @@ jobs:
         with:
           node-version: 16.x
           registry-url: https://npm.pkg.github.com
-          cache: npm
 
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: ${{env.CACHED_DEPENDENCY_PATHS}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-          npx playwright install --with-deps
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
