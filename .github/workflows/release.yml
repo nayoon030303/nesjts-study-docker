@@ -60,10 +60,10 @@ jobs:
       with:
         fetch-depth: 0
         clean: false
-    # - name: Create Source Bundle
-    #   run: |
-    #     git archive --format=zip v$RELEASE_VERSION -o $DEPLOY_VERSION.zip
-    #     zip -urq $DEPLOY_VERSION.zip dist
+    - name: Create Source Bundle
+      run: |
+        git archive --format=zip v$RELEASE_VERSION -o $DEPLOY_VERSION.zip
+        zip -urq $DEPLOY_VERSION.zip dist
     # - name: Configure AWS Credentials
     #   uses: aws-actions/configure-aws-credentials@v1
     #   with:
