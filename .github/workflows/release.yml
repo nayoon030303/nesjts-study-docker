@@ -43,8 +43,8 @@ jobs:
       #   NODE_AUTH_TOKEN: ${{ secrets.DAPI_GITHUB_PAT }} #
     - run: npm run build
     - name: Release
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.DAPI_GITHUB_PAT }} #
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #
       run: npx semantic-release
     - name: Version Check
       if: ${{ !env.RELEASE_VERSION }}
