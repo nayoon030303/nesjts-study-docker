@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.1.1...v1.1.2) (2022-08-26)
+
+
+### Reverts
+
+* Revert "Ci/push tag (#21)" (#22) ([fe3fd00](https://github.com/nayoon030303/nesjts-study-docker/commit/fe3fd003913eabf465f86e307f0f4caed0b18833)), closes [#21](https://github.com/nayoon030303/nesjts-study-docker/issues/21) [#22](https://github.com/nayoon030303/nesjts-study-docker/issues/22)
+
 ## [1.1.1](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.1.0...v1.1.1) (2022-08-21)
 
 
