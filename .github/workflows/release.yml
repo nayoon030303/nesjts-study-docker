@@ -47,9 +47,9 @@ jobs:
       run: npx semantic-release
 
     - name: Version Check
-      if: ${{ !env.RELEASE_VERSION }}
+      if: ${{ !RELEASE_VERSION }}
       run: |
-        echo ${{ env.RELEASE_VERSION }}
+        echo ${{ RELEASE_VERSION }}
         exit 1
 
     - name: Release Version
