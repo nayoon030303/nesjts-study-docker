@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.5.4...v1.5.5) (2022-08-29)
+
+
+### Bug Fixes
+
+* pull-request ([8df4323](https://github.com/nayoon030303/nesjts-study-docker/commit/8df43235dea63c0dd82b897877a7d12c17a38335))
+
 ## [1.5.4](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.5.3...v1.5.4) (2022-08-29)
 
 
