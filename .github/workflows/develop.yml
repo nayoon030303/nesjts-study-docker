@@ -1,0 +1,118 @@
+name: Develop
+
+on:
+  push:
+    branches:
+      - "develop"
+
+env:
+  AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
+  PREFIX_NAME: backoffice
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        registry-url: https://npm.pkg.github.com
+        scope: '@tportio'
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-npm.outputs.cache-hit != 'true'
+      run: npm ci
+
+    - run: npm run build:dev
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release
+
+    - name: Version Check
+      if: ${{ !env.RELEASE_VERSION }}
+      run: |
+        echo ${{ env.RELEASE_VERSION }}
+        exit 1
+
+    - name: Release Version
+      run: |
+        echo "$RELEASE_VERSION"
+        echo "DEPLOY_VERSION=app-v$RELEASE_VERSION" >> $GITHUB_ENV
+
+    - name: Upload Release Version
+      uses: actions/upload-artifact@v1
+      with:
+        name: versions
+        path: version.txt
+
+    - name: Deploy Version
+      run: echo "$DEPLOY_VERSION"
+
+    - name: Fetch Release Tags
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        clean: false
+
+    - name: Create Source Bundle
+      run: |
+        git archive --format=zip v$RELEASE_VERSION -o $DEPLOY_VERSION.zip
+        zip -urq $DEPLOY_VERSION.zip dist
+
+
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-northeast-2
+    # - name: Upload Source Bundle
+    #   run: aws s3 cp $DEPLOY_VERSION.zip s3://$AWS_EB_S3_BUCKET/DAPI/$DEPLOY_VERSION.zip
+    # - name: Create Application Version
+    #   env:
+    #     COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    #   run: aws elasticbeanstalk create-application-version --application-name DAPI --version-label $DEPLOY_VERSION --description "$COMMIT_MESSAGE" --source-bundle S3Bucket="$AWS_EB_S3_BUCKET",S3Key="DAPI/$DEPLOY_VERSION.zip"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: release
+    # if: startsWith(github.event.inputs.version, 'v') #
+    steps:
+    - run: |
+        echo ${{ env.RELEASE_VERSION }}
+    # - name: Environment
+    #   run: |
+    #     echo "$EB_$PREFIX_NAME"
+    #     echo "APP_NAME=$(eval echo '$PREFIX_NAME'" >> $GITHUB_ENV
+    #     echo "APP_VERSION=backoffice-v${{ github.event.inputs.version }}" >> $GITHUB_ENV
+
+    # - name: App Check
+    #   if: ${{ !env.APP_NAME }}
+    #   run: exit 1
+
+    # - name: App Version
+    #   run: |
+    #     echo "$APP_NAME"
+    #     echo "$APP_VERSION"
+
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-northeast-2
+    # # 서버 생성 후 주석 해제
+    # - name: Deploy Elastic Beanstalk
+    #   # aws elasticbeanstalk update-tags-for-resource --resource-arn $AWS_EB_ENVIRONMENT/$APP_NAME --tags-to-add Key=Version,Value=$APP_VERSION
+    #   run: aws elasticbeanstalk update-environment --environment-name $APP_NAME --version-label $APP_VERSION
+
