@@ -1,0 +1,95 @@
+# https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/github-actions.md
+# https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#manual-events
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      comment:
+        description: 'Comment'
+        required: true
+
+# env:
+#   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Comment
+      run: echo "${{ github.event.inputs.comment }}"
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        registry-url: https://npm.pkg.github.com
+        scope: '@tportio'
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-npm.outputs.cache-hit != 'true'
+      run: npm ci
+
+    - run: npm run build
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release
+
+    - name: Version Check
+      if: ${{ !env.RELEASE_VERSION }}
+      run: |
+        echo ${{ env.RELEASE_VERSION }}
+        exit 1
+
+    - name: Release Version
+      run: |
+        echo "$RELEASE_VERSION"
+        echo "DEPLOY_VERSION=app-v$RELEASE_VERSION" >> $GITHUB_ENV
+
+    - name: Deploy Version
+      run: echo "$DEPLOY_VERSION"
+
+    - name: Fetch Release Tags
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        clean: false
+
+    - name: Create Source Bundle
+      run: |
+        git archive --format=zip v$RELEASE_VERSION -o $DEPLOY_VERSION.zip
+        zip -urq $DEPLOY_VERSION.zip dist
+
+    - name: Bump version and push tag
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+
+
+
+    # Test12334 56
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-northeast-2
+    # - name: Upload Source Bundle
+    #   run: aws s3 cp $DEPLOY_VERSION.zip s3://$AWS_EB_S3_BUCKET/DAPI/$DEPLOY_VERSION.zip
+    # - name: Create Application Version
+    #   env:
+    #     COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    #   run: aws elasticbeanstalk create-application-version --application-name DAPI --version-label $DEPLOY_VERSION --description "$COMMIT_MESSAGE" --source-bundle S3Bucket="$AWS_EB_S3_BUCKET",S3Key="DAPI/$DEPLOY_VERSION.zip"
