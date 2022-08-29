@@ -42,7 +42,6 @@ jobs:
       if: ${{ !env.RELEASE_VERSION }}
       run: |
         echo ${{ env.RELEASE_VERSION }}
-        echo ${{ env.VERSION }}
         exit 1
 
     - name: Release Version
