@@ -82,6 +82,6 @@
     "testEnvironment": "node"
   },
   "release": {
-    "branches": ["master", "next"]
+    "branches": ["master", "develop"]
   }
 }
