@@ -72,13 +72,14 @@ jobs:
         git archive --format=zip v$RELEASE_VERSION -o $DEPLOY_VERSION.zip
         zip -urq $DEPLOY_VERSION.zip dist
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
     # 서버가 생성되면 설정값 변경후 주석 해제 하겠습니다.
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-northeast-2
+
     # - name: Upload Source Bundle
     #   run: aws s3 cp $DEPLOY_VERSION.zip s3://$AWS_EB_S3_BUCKET/DAPI/$DEPLOY_VERSION.zip
     # - name: Create Application Version
@@ -111,13 +112,14 @@ jobs:
         echo "$APP_NAME"
         echo "$APP_VERSION"
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
-    # # 서버 생성 후 주석 해제
+    # 서버 생성 후 주석 해제
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-northeast-2
+
     # - name: Deploy Elastic Beanstalk
     #   # aws elasticbeanstalk update-tags-for-resource --resource-arn $AWS_EB_ENVIRONMENT/$APP_NAME --tags-to-add Key=Version,Value=$APP_VERSION
     #   run: aws elasticbeanstalk update-environment --environment-name $APP_NAME --version-label $APP_VERSION
