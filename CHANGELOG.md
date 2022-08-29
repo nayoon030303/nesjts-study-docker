@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.2.0...v1.2.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* test1 ([4a4fb57](https://github.com/nayoon030303/nesjts-study-docker/commit/4a4fb57955f77a7a6ae3330a6aad7adfdb7fb04f))
+
 ## [1.5.5](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.5.4...v1.5.5) (2022-08-29)
 
 
