@@ -3,7 +3,7 @@
  * https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md
  */
 module.exports = {
-  branches: ['master', 'next'],
+  branches: ['master', 'develop'],
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
