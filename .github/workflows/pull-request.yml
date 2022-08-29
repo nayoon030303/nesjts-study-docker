@@ -27,11 +27,11 @@ jobs:
       - if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      # - name: Install Playwright Browsers
+      #   run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      # - name: Run Playwright tests
+      #   run: npx playwright test
 
       - uses: actions/upload-artifact@v2
         if: always()
