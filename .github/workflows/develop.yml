@@ -8,6 +8,7 @@ on:
 env:
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
   PREFIX_NAME: backoffice
+  EB_BACKOFFICE: backoffice-api-app
 
 jobs:
   release:
@@ -98,8 +99,8 @@ jobs:
 
     - name: Environment
       run: |
-        echo "$EB_$PREFIX_NAME"
-        echo "APP_NAME=$(eval echo '$PREFIX_NAME'" >> $GITHUB_ENV
+        echo "$EB_BACKOFFICE"
+        echo "APP_NAME=$EB_BACKOFFICE" >> $GITHUB_ENV
         echo "APP_VERSION='$DEPLOY_VERSION'" >> $GITHUB_ENV
 
     - name: App Check
