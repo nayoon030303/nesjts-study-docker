@@ -8,6 +8,7 @@ on:
 env:
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
   PREFIX_NAME: backoffice
+  RELEASE_VERSION: NaN
 
 jobs:
   release:
@@ -48,6 +49,9 @@ jobs:
       run: |
         echo "$RELEASE_VERSION"
         echo "DEPLOY_VERSION=app-v$RELEASE_VERSION" >> $GITHUB_ENV
+      env:
+        RELEASE_VERSION: "$RELEASE_VERSION"
+
 
     - name: Deploy Version
       run: echo "$DEPLOY_VERSION"
