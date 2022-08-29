@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.3.7...v1.4.0) (2022-08-29)
+
+
+### Features
+
+* develop yml ([#46](https://github.com/nayoon030303/nesjts-study-docker/issues/46)) ([73a414c](https://github.com/nayoon030303/nesjts-study-docker/commit/73a414c7cecbaed055dc5d377ba3f62bb0a81614))
+
 ## [1.3.7](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.3.6...v1.3.7) (2022-08-29)
 
 
