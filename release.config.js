@@ -1,6 +1,6 @@
 /**
  * https://github.com/semantic-release/semantic-release/blob/master/docs/usage/plugins.md
- * https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md
+ * https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md as
  */
 module.exports = {
   branches: ['master', 'develop'],
