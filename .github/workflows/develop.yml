@@ -8,11 +8,13 @@ on:
 env:
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
   PREFIX_NAME: backoffice
-  RELEASE_VERSION: NaN
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      deploy_version: ${{ steps.set_outputs.outputs.deploy_version }}
+
     steps:
     - uses: actions/checkout@v3
       with:
@@ -49,12 +51,16 @@ jobs:
       run: |
         echo "$RELEASE_VERSION"
         echo "DEPLOY_VERSION=app-v$RELEASE_VERSION" >> $GITHUB_ENV
-      env:
-        RELEASE_VERSION: "$RELEASE_VERSION"
 
 
     - name: Deploy Version
       run: echo "$DEPLOY_VERSION"
+
+    - name: Set Outputs
+      id: set_outputs
+      run: |
+        echo "::set-output name=deploy_version::$DEPLOY_VERSION"
+
 
     - name: Fetch Release Tags
       uses: actions/checkout@v3
@@ -86,8 +92,10 @@ jobs:
     needs: release
     # if: startsWith(github.event.inputs.version, 'v') #
     steps:
-    - run: |
-        echo ${{ env.RELEASE_VERSION }}
+      - name: Set Release Version Environments
+        run: |
+          echo "DEPLOY_VERSION=${{ needs.release.outputs.deploy_version }}" >> $GITHUB_ENV
+
     # - name: Environment
     #   run: |
     #     echo "$EB_$PREFIX_NAME"
