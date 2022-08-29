@@ -3,7 +3,7 @@ name: Production
 on:
   push:
     branches:
-      - "master"
+      - master
 
 env:
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
