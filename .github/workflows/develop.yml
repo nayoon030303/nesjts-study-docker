@@ -74,6 +74,7 @@ jobs:
         zip -urq $DEPLOY_VERSION.zip dist
 
     # 서버가 생성되면 설정값 변경후 주석 해제 하겠습니다..
+
     # - name: Configure AWS Credentials
     #   uses: aws-actions/configure-aws-credentials@v1
     #   with:
