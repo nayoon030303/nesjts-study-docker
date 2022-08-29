@@ -56,6 +56,11 @@ jobs:
     - name: Deploy Version
       run: echo "$DEPLOY_VERSION"
 
+    - name: Set Outputs
+      id: set_outputs
+      run: |
+        echo "::set-output name=deploy_version::$DEPLOY_VERSION"
+
     - name: Fetch Release Tags
       uses: actions/checkout@v3
       with:
