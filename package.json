@@ -1,6 +1,6 @@
 {
   "name": "study_nestjs_v1",
-  "version": "1.2.0",
+  "version": "1.5.5",
   "description": "",
   "author": "",
   "private": true,
@@ -8,6 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "build:dev": "nest build",
+    "build:prod": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
