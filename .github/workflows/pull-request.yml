@@ -2,7 +2,7 @@ name: Pull Request
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, develop]
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
   CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
