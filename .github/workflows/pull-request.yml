@@ -27,12 +27,5 @@ jobs:
       - if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      # Test4
-      # - name: Install Playwright Browsers
-      #   run: npx playwright install --with-deps
-
-      # - name: Run Playwright tests
-      #   run: npx playwright test
-
       - run: npm run lint
       - run: npm run build
