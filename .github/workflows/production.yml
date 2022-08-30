@@ -44,6 +44,10 @@ jobs:
     - name: Head Commit
       run: echo "${{github.event.head_commit.message}}"
 
+    - name: Head Commit
+      run: echo "${{github.event.head_commit.message}}"
+
+
     - name: npx Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
