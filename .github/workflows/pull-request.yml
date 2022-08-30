@@ -7,8 +7,6 @@ on:
       - develop
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
-  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
-  BUILD_CACHE_KEY: ${{ github.sha }}
 
 jobs:
   validate:
