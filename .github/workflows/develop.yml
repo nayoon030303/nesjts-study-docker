@@ -5,8 +5,8 @@ on:
     branches:
       - develop
 
-
 env:
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
   PREFIX_NAME: backoffice
   EB_BACKOFFICE: backoffice-api-app
@@ -33,7 +33,7 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: node_modules
+        path: ${{env.CACHED_DEPENDENCY_PATHS}}
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
     - if: steps.cache-npm.outputs.cache-hit != 'true'
       run: npm ci

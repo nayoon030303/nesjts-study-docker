@@ -7,8 +7,6 @@ on:
       - develop
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
-  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
-  BUILD_CACHE_KEY: ${{ github.sha }}
 
 jobs:
   validate:
@@ -28,13 +26,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
-
-      # Test3
-      # - name: Install Playwright Browsers
-      #   run: npx playwright install --with-deps
-
-      # - name: Run Playwright tests
-      #   run: npx playwright test
 
       - run: npm run lint
       - run: npm run build
