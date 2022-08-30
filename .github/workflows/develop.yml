@@ -5,7 +5,6 @@ on:
     branches:
       - develop
 
-
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
   AWS_EB_S3_BUCKET: elasticbeanstalk-ap-northeast-2-${{ secrets.AWS_ACCOUNT_ID }}
