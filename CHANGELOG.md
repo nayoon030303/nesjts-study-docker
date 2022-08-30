@@ -5,6 +5,27 @@
 
 * cache npm ([#62](https://github.com/nayoon030303/nesjts-study-docker/issues/62)) ([9eae28f](https://github.com/nayoon030303/nesjts-study-docker/commit/9eae28f1c8346dc90207b5f994b2f6627617c627))
 * pull-request ([8df4323](https://github.com/nayoon030303/nesjts-study-docker/commit/8df43235dea63c0dd82b897877a7d12c17a38335))
+* test yml files ([#64](https://github.com/nayoon030303/nesjts-study-docker/issues/64)) ([d8683ee](https://github.com/nayoon030303/nesjts-study-docker/commit/d8683ee4d23a044a6c83680504e30da153305c01))
+* test1 ([4a4fb57](https://github.com/nayoon030303/nesjts-study-docker/commit/4a4fb57955f77a7a6ae3330a6aad7adfdb7fb04f))
+* yml ([7f2ee37](https://github.com/nayoon030303/nesjts-study-docker/commit/7f2ee3772e7e1aa90b74e63d8050867649ecebfa))
+
+## [1.5.5](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.5.4...v1.5.5) (2022-08-30)
+
+
+### Bug Fixes
+
+* cache npm ([#62](https://github.com/nayoon030303/nesjts-study-docker/issues/62)) ([9eae28f](https://github.com/nayoon030303/nesjts-study-docker/commit/9eae28f1c8346dc90207b5f994b2f6627617c627))
+* pull-request ([8df4323](https://github.com/nayoon030303/nesjts-study-docker/commit/8df43235dea63c0dd82b897877a7d12c17a38335))
+* test1 ([4a4fb57](https://github.com/nayoon030303/nesjts-study-docker/commit/4a4fb57955f77a7a6ae3330a6aad7adfdb7fb04f))
+* yml ([7f2ee37](https://github.com/nayoon030303/nesjts-study-docker/commit/7f2ee3772e7e1aa90b74e63d8050867649ecebfa))
+
+## [1.5.5](https://github.com/nayoon030303/nesjts-study-docker/compare/v1.5.4...v1.5.5) (2022-08-30)
+
+
+### Bug Fixes
+
+* cache npm ([#62](https://github.com/nayoon030303/nesjts-study-docker/issues/62)) ([9eae28f](https://github.com/nayoon030303/nesjts-study-docker/commit/9eae28f1c8346dc90207b5f994b2f6627617c627))
+* pull-request ([8df4323](https://github.com/nayoon030303/nesjts-study-docker/commit/8df43235dea63c0dd82b897877a7d12c17a38335))
 * test1 ([4a4fb57](https://github.com/nayoon030303/nesjts-study-docker/commit/4a4fb57955f77a7a6ae3330a6aad7adfdb7fb04f))
 * yml ([7f2ee37](https://github.com/nayoon030303/nesjts-study-docker/commit/7f2ee3772e7e1aa90b74e63d8050867649ecebfa))
 
