@@ -41,7 +41,6 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.DAPI_GITHUB_PAT }}
     - run: npm run build:dev
 
-
     - name: npx Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
