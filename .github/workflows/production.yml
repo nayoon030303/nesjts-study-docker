@@ -40,6 +40,10 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.DAPI_GITHUB_PAT }}
     - run: npm run build:dev
 
+    - name: Head Commit
+      run: echo "${{github.event.head_commit.message}}"
+
+
     - name: npx Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
