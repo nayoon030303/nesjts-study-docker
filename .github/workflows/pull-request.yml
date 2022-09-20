@@ -45,7 +45,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: vivid-cache-playwright
+          key: cache-playwright-linux-1.24.2
 
       - if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
