@@ -43,9 +43,10 @@ jobs:
         uses: actions/cache@v2
         id: playwright-cache
         with:
-          path: |
-            ~/.cache/ms-playwright
-          key: cache-playwright-linux-1.24.2
+           path: |
+            ~/Library/Caches/ms-playwright
+            **/node_modules/playwright
+          key: cache-playwright-macos
 
       - if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
