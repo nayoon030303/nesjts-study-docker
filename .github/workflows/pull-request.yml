@@ -61,8 +61,8 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright's dependencies
-          if: steps.playwright-cache.outputs.cache-hit != 'true'
-          run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
 
       - name: Install Playwright tests
         run: npx playwright test
