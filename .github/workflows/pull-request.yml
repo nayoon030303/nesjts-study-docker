@@ -44,8 +44,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/Library/Caches/ms-playwright
+            ~/.cache/ms-playwright
           key: vivid-cache-playwright
+
       - if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
@@ -58,6 +59,7 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+
           retention-days: 30
 
       - name: lint & build
