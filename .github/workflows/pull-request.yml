@@ -46,9 +46,7 @@ jobs:
           path: |
             ~/Library/Caches/ms-playwright
           key: vivid-cache-playwright
-
-      - name: Install playwright deps
-          if: steps.playwright-cache.outputs.cache-hit != 'true'
+        - if: steps.playwright-cache.outputs.cache-hit != 'true'
           run: npx playwright install --with-deps
 
       - name: Install Playwright tests
