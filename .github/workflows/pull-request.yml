@@ -46,7 +46,7 @@ jobs:
            path: |
             ~/Library/Caches/ms-playwright
             **/node_modules/playwright
-          key: cache-playwright-macos
+           key: cache-playwright-macos
 
       - if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
