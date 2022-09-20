@@ -7,6 +7,7 @@ on:
       - develop
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  CACHED_PLAYWRIGHT_PATHS: ${{ github.workspace }}/node_modules
 
 jobs:
   validate:
@@ -26,6 +27,18 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
+
+    - name: Cache playwright binaries
+      id: playwright-cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/Library/Caches/ms-playwright
+        key: vivid-cache-playwright
+
+     - name: Install playwright deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright test
 
       - run: npm run lint
       - run: npm run build
