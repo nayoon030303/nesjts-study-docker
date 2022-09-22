@@ -20,7 +20,7 @@ jobs:
         id: waitForVercelPreviewDeployment
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 60
+          max_timeout: 200
       # access preview url
       - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
 
