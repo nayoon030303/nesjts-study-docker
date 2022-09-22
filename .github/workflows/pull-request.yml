@@ -9,24 +9,10 @@ env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
 
 jobs:
-  test_setup:
-    name: Test setup
-    runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
-    steps:
-      - name: Waiting Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
-        id: waitForVercelPreviewDeployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 200
-      # access preview url
-      - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
-
   validate:
-    needs: test_setup
     runs-on: ubuntu-latest
+    environment: pr
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -42,6 +28,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
+
+     - name: curl
+        run: |
+          curl \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer {{secrets.TOKEN}}" \
+            https://api.github.com/repos/OWNER/REPO/deployments
 
       - run: npm run lint
       - run: npm run build
