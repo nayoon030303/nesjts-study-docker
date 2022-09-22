@@ -33,7 +33,7 @@ jobs:
         run: |
           curl \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer {{secrets.GITHUB_TOKEN}}" \
+            -H "Authorization: Bearer {{secrets.NODE_AUTH_TOKEN}}" \
             https://api.github.com/repos/OWNER/REPO/deployments
 
       - run: npm run lint
