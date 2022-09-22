@@ -34,7 +34,7 @@ jobs:
           curl \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: {{secrets.GITHUB_TOKEN}}" \
-            https://api.github.com/repos/OWNER/REPO/deployments
+            https://api.github.com/repos/nayoon030303/nestjs-study-docker/deployments
 
       - run: npm run lint
       - run: npm run build
