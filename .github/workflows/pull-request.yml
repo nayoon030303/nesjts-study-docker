@@ -25,6 +25,7 @@ jobs:
       - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
 
   validate:
+    needs: test_setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
