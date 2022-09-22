@@ -9,6 +9,21 @@ env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
 
 jobs:
+  test_setup:
+    name: Test setup
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+      steps:
+        - name: Waiting Vercel Preview
+          uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+          id: waitForVercelPreviewDeployment
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            max_timeout: 60
+        # access preview url
+        - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
+
   validate:
     runs-on: ubuntu-latest
     steps:
